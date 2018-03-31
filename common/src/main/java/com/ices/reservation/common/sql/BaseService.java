@@ -51,6 +51,19 @@ public class BaseService<T> {
         }
     }
 
+    @Transactional
+    public Object deleteAllUsedByBase(List<T> list) {
+        try {
+            for(T t : list) {
+                this.beforeDelete(t);
+                this.baseDao.deleteByObject(t);
+            }
+            return ReturnUtil.success("删除成功");
+        } catch (Exception var3) {
+            throw new RuntimeException(var3.getMessage());
+        }
+    }
+
     public Object detailUsedByBase(T clz) {
         this.beforeDetail(clz);
         Map re = this.baseDao.selectOneByObject(clz);

@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 /**
  * @Author: ny
  * @Date: Created in 20:51 2018/3/22 0022
@@ -36,6 +38,12 @@ public class BaseController<T> {
     public Object deleteUsedByBase(@RequestBody T clz) {
         return this.baseService.deleteUsedByBase(clz);
     }
+
+    @RequestMapping(
+            value = {"/deleteList"},
+            method = {RequestMethod.POST}
+    )
+    public Object deleteAllUsedByBase(@RequestBody List<T> list) { return this.baseService.deleteAllUsedByBase(list); }
 
     @RequestMapping(
             value = {"/detail"},

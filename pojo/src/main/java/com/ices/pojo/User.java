@@ -24,15 +24,15 @@ public class User extends Page{
     public String sex;
     @Column(column = "province")
     public Integer province;
-    @RefColumn(refSql = "(select adName from addr_code where hid = province)")
+    @RefColumn(refSql = "(select address_name from addr_code where id = province)")
     public String provinceName;
     @Column(column = "city")
     public Integer city;
-    @RefColumn(refSql = "(select adName from addr_code where hid = city)")
+    @RefColumn(refSql = "(select address_name from addr_code where id = city)")
     public String cityName;
     @Column(column = "county")
     public Integer county;
-    @RefColumn(refSql = "(select adName from addr_code where hid = county)")
+    @RefColumn(refSql = "(select address_name from addr_code where id = county)")
     public String countyName;
     @Column(column = "detail_addr")
     public String detailAddr;

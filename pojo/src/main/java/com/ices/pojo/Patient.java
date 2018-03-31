@@ -16,6 +16,8 @@ import lombok.Setter;
 public class Patient extends Page {
     @Column(column = "patient_id", isId = true)
     public String patientId;
+    @Column(column = "patient_name")
+    public String patientName;
     @Column(column = "user_id")
     public String userId;
     @Column(column = "id_card")
