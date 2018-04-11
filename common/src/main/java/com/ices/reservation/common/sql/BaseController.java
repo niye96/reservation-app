@@ -62,10 +62,18 @@ public class BaseController<T> {
     }
 
     @RequestMapping(
-            value = {"/count"},
+            value = {"/list"},
             method = {RequestMethod.POST}
     )
-    public Object getCount(@RequestBody T clz) {
-        return this.baseService.getCount(clz);
+    public Object getListUsedByBase(@RequestBody T clz) {
+        return this.baseService.getListUsedByBase(clz, (String)null);
     }
+
+//    @RequestMapping(
+//            value = {"/count"},
+//            method = {RequestMethod.POST}
+//    )
+//    public Object getCount(@RequestBody T clz) {
+//        return this.baseService.getCount(clz);
+//    }
 }

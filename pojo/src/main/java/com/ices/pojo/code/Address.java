@@ -6,6 +6,9 @@ import com.ices.reservation.common.utils.Page;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author: ny
  * @Date: Created in 14:04 2018/3/31 0031
@@ -24,4 +27,5 @@ public class Address extends Page {
     public String addressName;
     @Column(column = "level")
     public String level;
+    public List children = new ArrayList<>();
 }
