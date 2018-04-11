@@ -10,6 +10,7 @@
 		<module>common</module>
 		<module>manager</module>
 		<module>pojo</module>
+		<module>filesystem</module>
 	</modules>
 	<packaging>pom</packaging>
 
@@ -34,11 +35,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>1.3.2</version>
-		</dependency>
+
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -57,11 +54,6 @@
 			<version>1.2.22</version>
 		</dependency>
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>6.0.6</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.didispace</groupId>
