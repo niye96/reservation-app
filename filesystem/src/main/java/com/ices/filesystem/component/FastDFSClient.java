@@ -4,6 +4,7 @@ import com.github.tobato.fastdfs.domain.FileInfo;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsUnsupportStorePathException;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
+import com.ices.reservation.common.utils.ReturnUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -31,9 +32,14 @@ public class FastDFSClient {
      * @return 文件访问地址
      * @throws IOException
      */
-    public String uploadFile(MultipartFile file) throws IOException {
-        StorePath storePath = storageClient.uploadFile(file.getInputStream(),file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()),null);
-        return "/"+storePath.getFullPath();
+    public Object uploadFile(MultipartFile file) throws IOException {
+        StorePath storePath = null;
+        try {
+            storePath = storageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
+        }catch (Exception e){
+            return ReturnUtil.error("上传照片失败");
+        }
+        return ReturnUtil.success("/"+storePath.getFullPath());
     }
 
     /**

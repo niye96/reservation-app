@@ -20,9 +20,9 @@ public class FastDFSController {
     FastDFSClient fastDFSClient;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String upload(@RequestParam MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public Object upload(@RequestParam MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 省略业务逻辑代码。。。
-        String imgUrl = fastDFSClient.uploadFile(file);
+        Object imgUrl = fastDFSClient.uploadFile(file);
         return imgUrl;
     }
 }

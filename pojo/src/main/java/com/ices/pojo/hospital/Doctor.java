@@ -36,4 +36,6 @@ public class Doctor extends Page {
     public String skill;
     @Column(column = "introduction")
     public String introduction;
+    @Column(column = "doctor_photo")
+    public String doctorPhoto;
 }
