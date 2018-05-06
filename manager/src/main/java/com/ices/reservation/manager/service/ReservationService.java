@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,8 +30,15 @@ public class ReservationService extends BaseService<Reservation>{
     @Autowired
     ReservationDao reservationDao;
 
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     @Transactional
     public Object reservation(Reservation reservation){
+        // 判断同个用户是否预约了4次以上
+        Reservation temp = new Reservation();
+        temp.setUserPhone(reservation.getUserPhone());
+        List<Map> tempList = reservationDao.selectNoPageList(temp, null);
+        if(tempList.size() >= 4) return ReturnUtil.error("已到达最大预约数");
         // 判断有没有重复预约
         Map re = reservationDao.selectOneByObject(reservation);
         if(re != null) return ReturnUtil.error("请勿重复预约");
@@ -61,4 +72,29 @@ public class ReservationService extends BaseService<Reservation>{
         reservation.setCalendar(calendar);
         return reservation;
     }
+
+    @Transactional
+    public Object cancelReservation(Reservation r){
+        Reservation reservation = new Reservation();
+        reservation.setReservationId(r.getReservationId());
+        r = ClassUtil.mapToClass(reservationDao.selectOneByObject(r), Reservation.class);
+        if(r == null) return ReturnUtil.error("此预约项不存在");
+        // 判断日期是否符合
+        Calendar calendar = new Calendar();
+        calendar.setAdmissionId(r.getAdmissionId());
+        Object data = ((Map)calendarService.detailUsedByBase(calendar)).get("data");
+        calendar = ClassUtil.mapToClass((Map)data, Calendar.class);
+        try {
+            long orderTime = simpleDateFormat.parse(calendar.getAdmissionDate()).getTime();
+            long today = new Date().getTime();
+            if(orderTime - today <= 3600 * 24 * 2) return ReturnUtil.error("已经无法取消预约");
+        } catch (ParseException e) {
+            throw new RuntimeException();
+        }
+        reservationDao.deleteByObject(reservation);
+        calendar.setRemainingNum(calendar.getRemainingNum() + 1);
+        calendarService.updateUsedByBase(calendar);
+        return ReturnUtil.success();
+    }
+
 }

@@ -31,4 +31,9 @@ public class ReservationController{
     public Object listReservation(@RequestBody Reservation reservation){
         return reservationService.getListUsedByBase(reservation, null);
     }
+
+    @RequestMapping(value = "cancel", method = {RequestMethod.POST})
+    public Object cancelReservation(@RequestBody Reservation reservation){
+        return reservationService.cancelReservation(reservation);
+    }
 }
