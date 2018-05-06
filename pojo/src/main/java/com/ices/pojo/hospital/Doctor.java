@@ -22,7 +22,7 @@ public class Doctor extends Page {
     @RefColumn(refSql = "(select hospital_name from hospital_info where hospital_id = hospitalId)")
     public String hospitalName;
     @Column(column = "type_id")
-    public String typeId;
+    public Long typeId;
     @RefColumn(refSql = ("(select department_type_name from department_code " +
             "where department_type_id = typeId)"))
     public String typeName;

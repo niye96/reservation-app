@@ -20,6 +20,8 @@ public class Patient extends Page {
     public String patientName;
     @Column(column = "user_id")
     public String userId;
+    @Column(column = "card_type")
+    public String cardType;
     @Column(column = "id_card")
     public String idCard;
     @Column(column = "relation")

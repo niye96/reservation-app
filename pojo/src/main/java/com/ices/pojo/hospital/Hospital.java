@@ -26,15 +26,15 @@ public class Hospital extends Page{
     @Column(column = "hospital_grade")
     public String hospitalGrade;
     @Column(column = "province")
-    public Integer province;
+    public String province;
     @RefColumn(refSql = "(select address_name from addr_code where address_id = province)")
     public String provinceName;
     @Column(column = "city")
-    public Integer city;
+    public String city;
     @RefColumn(refSql = "(select address_name from addr_code where address_id = city)")
     public String cityName;
     @Column(column = "county")
-    public Integer county;
+    public String county;
     @RefColumn(refSql = "(select address_name from addr_code where address_id = county)")
     public String countyName;
     @Column(column = "detail_addr")
