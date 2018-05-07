@@ -16,9 +16,14 @@ public class CalendarProvider {
 
     public String getListByName(Map<String, Object> params){
         Calendar calendar = (Calendar) params.get("calendar");
-        StringBuilder sql =new StringBuilder("select a.*,h.department_name,d.doctor_name from admission_calendar a,hospital_department h, doctor_info d " +
+        StringBuilder sql =new StringBuilder("select a.admission_id as admissionId, a.hospital_id as hospitalId," +
+                "a.department_id as departmentId, a.doctor_id as doctorId, a.admission_date as admissionDate," +
+                "a.admission_period as admissionPeriod, a.admission_num as admissionNum, a.remaining_num as remainingNum," +
+                "a.is_valid as isValid, h.department_name as departmentName,d.doctor_name as doctorName from admission_calendar a,hospital_department h, doctor_info d " +
                 "where a.department_id = h.department_id and d.doctor_id = a.doctor_id ");
-        sql.append("and a.hospital_id='" + calendar.getHospitalId() + "' ");
+        if(StringUtils.isNotEmpty(calendar.getHospitalId())) {
+            sql.append("and a.hospital_id='" + calendar.getHospitalId() + "' ");
+        }
         if(StringUtils.isNotEmpty(calendar.getDoctorName())) {
             sql.append("and h.department_name like '%" + calendar.getDepartmentName() + "%'");
         }
@@ -36,7 +41,9 @@ public class CalendarProvider {
         Calendar calendar = (Calendar) params.get("calendar");
         StringBuilder sql =new StringBuilder("select count(1) from admission_calendar a,hospital_department h, doctor_info d " +
                 "where a.department_id = h.department_id and d.doctor_id = a.doctor_id ");
-        sql.append("and a.hospital_id='" + calendar.getHospitalId() + "'");
+        if(StringUtils.isNotEmpty(calendar.getHospitalId())) {
+            sql.append("and a.hospital_id='" + calendar.getHospitalId() + "' ");
+        }
         if(StringUtils.isNotEmpty(calendar.getDoctorName())) {
             sql.append("and h.department_name like '%" + calendar.getDoctorName() + "%'");
         }

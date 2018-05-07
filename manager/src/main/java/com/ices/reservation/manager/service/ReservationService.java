@@ -6,7 +6,7 @@ import com.ices.reservation.common.sql.BaseService;
 import com.ices.reservation.common.utils.ClassUtil;
 import com.ices.reservation.common.utils.IdUtil;
 import com.ices.reservation.common.utils.ReturnUtil;
-import com.ices.reservation.manager.dao.ReservationDao;
+import com.ices.reservation.manager.dao.reservation.ReservationDao;
 import com.ices.reservation.manager.service.hospital.CalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,6 +95,25 @@ public class ReservationService extends BaseService<Reservation>{
         calendar.setRemainingNum(calendar.getRemainingNum() + 1);
         calendarService.updateUsedByBase(calendar);
         return ReturnUtil.success();
+    }
+
+    public Object getReservationByDoctor(Calendar c, String patientName){
+        // 查询医生的排班
+        Calendar calendar = new Calendar();
+        calendar.setDoctorId(c.getDoctorId());
+        calendar.setAdmissionPeriod(c.getAdmissionPeriod());
+        calendar.setAdmissionDate(simpleDateFormat.format(new Date()));
+        Map re =(Map)((Map)calendarService.detailUsedByBase(calendar)).get("data");
+        // 查询当前排班的用户
+        if(re == null) return ReturnUtil.error("今天该时间段没有排班");
+        Reservation reservation = new Reservation();
+        String admissionId = (String) re.get("admissionId");
+        reservation.setAdmissionId(admissionId);
+        reservation.setPageSize(c.getPageSize());
+        reservation.setPageNo(c.getPageNo());
+        reservation.setPatientName(patientName);
+        List<Map> reservations = reservationDao.getPageListByName(reservation);
+        return reservations == null ? ReturnUtil.error("未查到数据") : ReturnUtil.success(reservations,reservationDao.countByName(reservation));
     }
 
 }

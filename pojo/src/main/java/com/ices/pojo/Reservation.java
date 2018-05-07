@@ -4,6 +4,7 @@ import com.ices.pojo.hospital.Calendar;
 import com.ices.reservation.common.sql.Column;
 import com.ices.reservation.common.sql.RefColumn;
 import com.ices.reservation.common.sql.Table;
+import com.ices.reservation.common.utils.Page;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "reservation_info")
-public class Reservation {
+public class Reservation extends Page {
     @Column(column = "reservation_id", isId = true)
     public String reservationId;
     @Column(column = "user_phone")
