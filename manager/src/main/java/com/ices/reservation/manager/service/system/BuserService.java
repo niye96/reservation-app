@@ -5,6 +5,7 @@ import com.ices.reservation.common.sql.BaseService;
 import com.ices.reservation.common.utils.ClassUtil;
 import com.ices.reservation.common.utils.PwdUtil;
 import com.ices.reservation.common.utils.ReturnUtil;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,20 @@ public class BuserService extends BaseService<Buser> {
             clz.setLoginPwd(PwdUtil.encrypt(clz.getLoginPwd()));
         } catch (Exception e) {
             throw new RuntimeException("保存错误");
+        }
+    }
+
+    @Override
+    @Transactional
+    public Object addOneUsedByBase(Buser clz) {
+        try {
+            clz.setLoginPwd(PwdUtil.encrypt(clz.getLoginPwd()));
+            this.baseDao.insertOne(clz);
+            return ReturnUtil.success(clz);
+        } catch (DuplicateKeyException var3) {
+            return ReturnUtil.error("该账户已存在");
+        } catch (Exception var4) {
+            throw new RuntimeException(var4.getMessage());
         }
     }
 

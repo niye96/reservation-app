@@ -1,9 +1,9 @@
-package com.ices.reservation.manager.web;
+package com.ices.reservation.manager.web.reservation;
 
-import com.ices.pojo.Reservation;
+import com.ices.pojo.reservation.Reservation;
 import com.ices.pojo.hospital.Calendar;
 import com.ices.reservation.common.utils.ClassUtil;
-import com.ices.reservation.manager.service.ReservationService;
+import com.ices.reservation.manager.service.reservation.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

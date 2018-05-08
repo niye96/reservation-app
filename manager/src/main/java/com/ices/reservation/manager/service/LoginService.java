@@ -71,7 +71,7 @@ public class LoginService {
 
     public boolean checkUserPhone(String phone){
         if(phonePattern == null)
-            phonePattern = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+            phonePattern = Pattern.compile("^((13[0-9])|(15[^4,\\D])|178|(18[0,5-9]))\\d{8}$");
         Matcher m = phonePattern.matcher(phone);
         return m.matches();
     }

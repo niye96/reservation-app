@@ -1,6 +1,6 @@
-package com.ices.reservation.manager.service;
+package com.ices.reservation.manager.service.reservation;
 
-import com.ices.pojo.Reservation;
+import com.ices.pojo.reservation.Reservation;
 import com.ices.pojo.hospital.Calendar;
 import com.ices.reservation.common.sql.BaseService;
 import com.ices.reservation.common.utils.ClassUtil;

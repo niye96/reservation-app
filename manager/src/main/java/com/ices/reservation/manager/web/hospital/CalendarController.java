@@ -22,7 +22,7 @@ public class CalendarController extends BaseController<Calendar> {
 
     @Override
     @RequestMapping(value = "pagelist", method = {RequestMethod.POST})
-    public Object getPageListUsedByBase(Calendar clz) {
+    public Object getPageListUsedByBase(@RequestBody Calendar clz) {
         return calendarService.getPageListByCondition(clz);
     }
 }
