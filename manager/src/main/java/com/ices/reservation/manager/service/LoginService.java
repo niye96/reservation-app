@@ -4,6 +4,7 @@ import com.ices.pojo.Patient;
 import com.ices.pojo.User;
 import com.ices.pojo.system.Buser;
 import com.ices.reservation.common.utils.ClassUtil;
+import com.ices.reservation.common.utils.IdUtil;
 import com.ices.reservation.common.utils.PwdUtil;
 import com.ices.reservation.common.utils.ReturnUtil;
 import com.ices.reservation.manager.dao.UserDao;
@@ -11,12 +12,15 @@ import com.ices.reservation.manager.dao.system.BuserDao;
 import com.ices.reservation.manager.service.system.BuserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +30,8 @@ import java.util.regex.Pattern;
  */
 @Service
 public class LoginService {
+    @Autowired
+    RedisService redisService;
     @Autowired
     BuserDao buserDao;
     @Autowired
@@ -46,7 +52,14 @@ public class LoginService {
             }catch (Exception e){
                 return ReturnUtil.error("服务器发生错误");
             }
-            return ReturnUtil.success(user);
+            String uuid = IdUtil.getUUID();
+            String key = "BUSER:" + user.getLoginId();
+            redisService.setString(key, uuid);
+            redisService.expireString(key, 2, TimeUnit.DAYS);
+            Map re = new HashMap();
+            re.put("key", key);
+            re.put("token", uuid);
+            return ReturnUtil.success(re);
         }
         return ReturnUtil.error("请输入用户名或密码");
     }
@@ -65,8 +78,14 @@ public class LoginService {
         }catch (Exception e){
             return ReturnUtil.error("服务器发生错误");
         }
-        return ReturnUtil.success("修改成功");
-
+        String uuid = IdUtil.getUUID();
+        String key = "USER:" + user.getUserPhone();
+        redisService.setString(key, uuid);
+        redisService.expireString(key, 2, TimeUnit.DAYS);
+        Map re = new HashMap();
+        re.put("key", key);
+        re.put("token", uuid);
+        return ReturnUtil.success(re);
     }
 
     public boolean checkUserPhone(String phone){
