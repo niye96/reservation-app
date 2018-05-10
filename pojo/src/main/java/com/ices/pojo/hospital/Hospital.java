@@ -45,5 +45,7 @@ public class Hospital extends Page{
     public String introduction;
     @Column(column = "is_valid")
     public String isValid;
+    @Column(column = "hospital_picture")
+    public String hospitalPicture;
 
 }

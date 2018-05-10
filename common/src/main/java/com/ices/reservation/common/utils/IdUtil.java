@@ -12,7 +12,7 @@ public class IdUtil {
     private static Random random = new Random();
     public static String generateId(){
 
-        return "" + new Date().getTime() + random.nextInt(10000000);
+        return String.valueOf(new Date().getTime()) + String.valueOf(random.nextInt(10000000));
     }
 
     public static String getUUID(){

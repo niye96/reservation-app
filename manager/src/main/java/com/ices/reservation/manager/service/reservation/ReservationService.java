@@ -37,6 +37,7 @@ public class ReservationService extends BaseService<Reservation>{
         // 判断同个用户是否预约了4次以上
         Reservation temp = new Reservation();
         temp.setUserPhone(reservation.getUserPhone());
+        temp.setIsAdmission(0);
         List<Map> tempList = reservationDao.selectNoPageList(temp, null);
         if(tempList.size() >= 4) return ReturnUtil.error("已到达最大预约数");
         // 判断有没有重复预约

@@ -65,7 +65,8 @@ public class LoginService {
     }
 
     public Object userLogin(User user){
-        if(StringUtils.isNotEmpty(user.getUserPhone())) return ReturnUtil.error("请输入用户名或密码");
+        if(StringUtils.isEmpty(user.getUserPhone()) || StringUtils.isEmpty(user.getUserPwd()))
+            return ReturnUtil.error("请输入用户名或密码");
         if(user.getUserPhone().length() != 11) return ReturnUtil.error("手机号应为11位");
         if(!checkUserPhone(user.getUserPhone())) return ReturnUtil.error("非法的手机号");
         User tempUser = new User();

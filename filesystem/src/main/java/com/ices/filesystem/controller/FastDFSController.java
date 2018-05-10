@@ -21,7 +21,6 @@ public class FastDFSController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public Object upload(@RequestParam MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // 省略业务逻辑代码。。。
         Object imgUrl = fastDFSClient.uploadFile(file);
         return imgUrl;
     }

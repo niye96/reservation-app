@@ -40,11 +40,13 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
         String key = request.getHeader("userkey");
         String token = request.getHeader("usertoken");
         if(StringUtils.isEmpty(token) || StringUtils.isEmpty(key)) {
+            response.setHeader("access-control-allow-origin", "*");
             response.getWriter().print(JSONObject.toJSON(ReturnUtil.error("无权限请求")));
             return false;
         }
         String result = redisService.getString(key);
         if(!token.equals(result)) {
+            response.setHeader("access-control-allow-origin", "*");
             response.getWriter().print(JSONObject.toJSON(ReturnUtil.error("请重新登录")));
             return false;
         }

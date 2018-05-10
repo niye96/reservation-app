@@ -24,10 +24,10 @@ public class CalendarProvider {
         if(StringUtils.isNotEmpty(calendar.getHospitalId())) {
             sql.append("and a.hospital_id='" + calendar.getHospitalId() + "' ");
         }
-        if(StringUtils.isNotEmpty(calendar.getDoctorName())) {
+        if(StringUtils.isNotEmpty(calendar.getDepartmentName())) {
             sql.append("and h.department_name like '%" + calendar.getDepartmentName() + "%'");
         }
-        if(StringUtils.isNotEmpty(calendar.getDepartmentName())){
+        if(StringUtils.isNotEmpty(calendar.getDoctorName())){
             sql.append("and d.doctor_name like '%" + calendar.getDoctorName() + "%'");
         }
         int offset = (Integer.valueOf(calendar.getPageNo()) - 1) * Integer.valueOf(calendar.getPageSize());

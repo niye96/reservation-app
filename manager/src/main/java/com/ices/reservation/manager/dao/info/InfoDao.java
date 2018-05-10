@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Mapper
 public interface InfoDao {
-    @Select(value = "select count(*) as num from hospital_info group by is_valid order by is_valid")
+    @Select(value = "select is_valid as isValid, count(*) as num from hospital_info group by is_valid")
     List<Map> getHostpitalStatus();
 
     @SelectProvider(
