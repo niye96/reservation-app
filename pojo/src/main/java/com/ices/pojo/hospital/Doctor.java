@@ -7,6 +7,9 @@ import com.ices.reservation.common.utils.Page;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+
 /**
  * @Author: ny
  * @Date: Created in 14:39 2018/4/2 0002
@@ -26,10 +29,13 @@ public class Doctor extends Page {
     @RefColumn(refSql = ("(select department_type_name from department_code " +
             "where department_type_id = typeId)"))
     public String typeName;
+    @NotEmpty(message = "请输入医生姓名")
     @Column(column = "doctor_name", isUseLike = true)
     public String doctorName;
+    @NotEmpty(message = "请选择医生性别")
     @Column(column = "sex")
     public String sex;
+    @NotEmpty(message = "请选择医生职称")
     @Column(column = "doctor_title")
     public String doctorTitle;
     @Column(column = "skill")

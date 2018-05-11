@@ -1,10 +1,13 @@
 package com.ices.reservation.common.sql;
 
+import com.ices.reservation.common.utils.ReturnUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -19,16 +22,24 @@ public class BaseController<T> {
             value = {"/add"},
             method = {RequestMethod.POST}
     )
-    public Object addUsedByBase(@RequestBody T clz) {
-        return this.baseService.addOneUsedByBase(clz);
+    public Object addUsedByBase(@RequestBody @Valid T clz, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return ReturnUtil.error(bindingResult.getFieldError().getDefaultMessage());
+        }else{
+            return this.baseService.addOneUsedByBase(clz);
+        }
     }
 
     @RequestMapping(
             value = {"/update"},
             method = {RequestMethod.POST}
     )
-    public Object updateUsedByBase(@RequestBody T clz) {
-        return this.baseService.updateUsedByBase(clz);
+    public Object updateUsedByBase(@RequestBody @Valid T clz, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return ReturnUtil.error(bindingResult.getFieldError().getDefaultMessage());
+        }else{
+            return this.baseService.updateUsedByBase(clz);
+        }
     }
 
     @RequestMapping(

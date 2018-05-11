@@ -7,6 +7,8 @@ import com.ices.reservation.common.utils.Page;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * @Author: ny
  * @Date: Created in 14:04 2018/3/31 0031
@@ -21,18 +23,23 @@ public class Hospital extends Page{
     public String hospitalManager;
     @RefColumn(refSql = "(select user_name from buser_info where login_id = hospitalManager)")
     public String managerName;
+    @NotEmpty(message = "请填写医院名称")
     @Column(column = "hospital_name", isUseLike = true)
     public String hospitalName;
+    @NotEmpty(message = "请选择医院级别")
     @Column(column = "hospital_grade")
     public String hospitalGrade;
+    @NotEmpty(message = "请选择医院地址")
     @Column(column = "province")
     public String province;
     @RefColumn(refSql = "(select address_name from addr_code where address_id = province)")
     public String provinceName;
+    @NotEmpty(message = "请选择医院地址")
     @Column(column = "city")
     public String city;
     @RefColumn(refSql = "(select address_name from addr_code where address_id = city)")
     public String cityName;
+    @NotEmpty(message = "请选择医院地址")
     @Column(column = "county")
     public String county;
     @RefColumn(refSql = "(select address_name from addr_code where address_id = county)")

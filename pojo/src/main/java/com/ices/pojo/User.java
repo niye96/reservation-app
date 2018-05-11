@@ -8,6 +8,9 @@ import com.ices.reservation.common.utils.Page;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 /**
  * @Author: ny
  * @Date: Created in 21:30 2018/3/23 0023

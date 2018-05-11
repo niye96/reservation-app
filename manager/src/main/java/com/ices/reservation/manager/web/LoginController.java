@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * @Author: ny
@@ -35,4 +36,5 @@ public class LoginController {
     public Object registerUser(@RequestBody User user){
         return loginService.registerUser(user);
     }
+
 }
