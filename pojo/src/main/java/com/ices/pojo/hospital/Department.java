@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * @Author: ny
@@ -21,7 +22,7 @@ public class Department extends Page{
     public String departmentId;
     @Column(column = "hospital_id")
     public String hospitalId;
-    @NotEmpty(message = "请选择科室分类")
+    @NotNull(message = "请选择科室分类")
     @Column(column = "type_id")
     public Long typeId;
     @RefColumn(refSql = ("(select department_type_name from department_code " +
