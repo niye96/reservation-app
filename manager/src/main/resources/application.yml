@@ -7,6 +7,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: root
     username: root
+    database-name: reservation
+    host: localhost
     url: jdbc:mysql://127.0.0.1:3306/reservation?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
   redis:
     host: 192.168.52.136

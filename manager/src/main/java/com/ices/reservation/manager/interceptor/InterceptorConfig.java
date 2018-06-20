@@ -14,7 +14,7 @@ import java.util.List;
  * @Author: ny
  * @Date: Created in 14:43 2018/5/8 0008
  */
-//@Configuration
+@Configuration
 public class InterceptorConfig extends WebMvcConfigurationSupport {
 
     @Bean

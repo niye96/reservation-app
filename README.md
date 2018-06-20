@@ -20,4 +20,4 @@
 
 6. 执行ManagerApplication的main函数
 
-7. 访问http://localhost:8080/swagger-ui.html#/，进行接口的测试使用
+7. 访问swagger(http://localhost:8080/swagger-ui.html#/)，进行接口的测试使用
