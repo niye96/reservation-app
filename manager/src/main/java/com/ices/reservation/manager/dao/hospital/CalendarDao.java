@@ -27,4 +27,15 @@ public interface CalendarDao extends BaseDao<Calendar> {
     )
     Integer countListByName(@Param("calendar") Calendar calendar);
 
+    @SelectProvider(
+            type = CalendarProvider.class,
+            method = "getCalendarByDate"
+    )
+    List<Map> getCalendarByDate(@Param("calendar") Calendar calendar, @Param("begin") String begin, @Param("end") String end);
+
+    @SelectProvider(
+            type = CalendarProvider.class,
+            method = "getSelectCalendar"
+    )
+    List<Map> getSelectCalendar(@Param("calendar") Calendar calendar);
 }

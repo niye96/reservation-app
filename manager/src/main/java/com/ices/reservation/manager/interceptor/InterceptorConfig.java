@@ -34,8 +34,12 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         whiteUrl.add("/code/adddress/detail");
         whiteUrl.add("/hospital/hospital/pagelist");
         whiteUrl.add("/hospital/doctor/detail");
+        whiteUrl.add("/hospital/hospital/list");
+        whiteUrl.add("/hospital/department/listbytype");
         whiteUrl.add("/hospital/department/pagelist");
         whiteUrl.add("/hospital/calendar/pagelist");
+        whiteUrl.add("/hospital/calendar/getbydate");
+        whiteUrl.add("/hospital/calendar/getselect");
 
         registry.addInterceptor(baseInterceptor())
             .addPathPatterns("/**").excludePathPatterns(whiteUrl);

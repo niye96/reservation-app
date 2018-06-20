@@ -53,4 +53,28 @@ public class CalendarProvider {
         this.log.info("SQL: {}", sql);
         return sql.toString();
     }
+
+    public String getCalendarByDate(Map<String, Object> params){
+        Calendar calendar = (Calendar) params.get("calendar");
+        String begin = (String) params.get("begin");
+        String end = (String) params.get("end");
+        StringBuilder sql = new StringBuilder("select DISTINCT a.admission_date as admissionDate from admission_calendar a ");
+        sql.append("where a.department_id = '" + calendar.getDepartmentId() + "'");
+        sql.append(" and a.hospital_id = '" + calendar.getHospitalId() + "'");
+        sql.append(" and a.admission_date between '" + begin + "' and '" + end + "'");
+        this.log.info("SQL: {}", sql);
+        return sql.toString();
+    }
+
+    public String getSelectCalendar(Map<String, Object> params){
+        Calendar calendar = (Calendar) params.get("calendar");
+        StringBuilder sql = new StringBuilder("select a.admission_id as admissionId, a.admission_period as admissionPeriod, a.remaining_num as remainingNum, " +
+                "d.doctor_name as doctorName, d.doctor_title as doctorTitle from admission_calendar a, doctor_info d " +
+                "where d.doctor_id = a.doctor_id");
+        sql.append(" and a.department_id = '" + calendar.getDepartmentId() + "'");
+        sql.append(" and a.hospital_id = '" + calendar.getHospitalId() + "'");
+        sql.append(" and a.admission_date = '" + calendar.getAdmissionDate() + "'");
+        this.log.info("SQL: {}", sql);
+        return sql.toString();
+    }
 }
